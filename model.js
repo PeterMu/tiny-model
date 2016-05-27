@@ -12,7 +12,7 @@
     }else{
         if(window.jQuery){
             var ret = factory(window.jQuery)
-            return ret
+            window.Model = ret
         }else{
             console && console.error('U need to load jquery!')
         }
