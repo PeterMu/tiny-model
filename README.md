@@ -37,7 +37,7 @@
 
 必须，默认为true，发送请求时自动添加时间戳，防止缓存。
 
-###　baseUrl { String }
+### baseUrl { String }
 
 必须，请求的根路径，默认为空
 
@@ -191,13 +191,16 @@ var config = {
 /**
  * Model 初始化时会根据 modelConfig 对象生成 model 方法
  * model 方法的方法名为 modelConfig 配置对象的 key
- * 生成的 model 方法，参数列表如下：
- * (params, successCb, [errorCb])
+ * 生成的 model 方法，参数: (params, successCb, [errorCb])
+ * 参数说明：
+ * params: 请求的参数
+ * successCb: 请求成功（HTTP 200）的回调函数
+ * errorCb: 请求失败（HTTP 非200）的回调函数
  */
 var model = new Model(config)
 model.getDomain({
     domain_id: 1001
-}, function(resp){
+}, function(resp, isSucc){
     console.log(resp)
 }, function(error){
     console.log(error)
@@ -205,7 +208,8 @@ model.getDomain({
 
 model.addDomain({
     domain: 'dnspod.cn'
-}, function(resp){
+}, function(resp, isSucc){
     console.log(resp)
 })
 ```
+
