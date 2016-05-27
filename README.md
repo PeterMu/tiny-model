@@ -80,7 +80,7 @@ model 请求方法配置对象。上面的全局配置项都可以在 modelConfi
 ## 使用样例
 
 ```
-var TinyModel = require('tiny-model')
+var Model = require('tiny-model')
 //Model 配置
 var config = {
     before: function(){
