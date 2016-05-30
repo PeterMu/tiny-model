@@ -1,4 +1,4 @@
-# Tiny-Model
+# Tiny-Model   [![npm](https://img.shields.io/npm/v/tiny-model.svg)](https://www.npmjs.com/package/tiny-model)  [![npm](https://img.shields.io/npm/dt/tiny-model.svg)](https://www.npmjs.com/package/tiny-model)
 
 根据请求配置文件生成超轻量级 model，可以根据项目需求，基于 tiny-model 封装出model组件。
 
