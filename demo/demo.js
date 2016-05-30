@@ -6,12 +6,11 @@
 requirejs.config({
     barUrl: './',
     paths: {
-        'jquery': 'libs/jquery',
-        'reporter': '../../util/reporter'
+        'jquery': 'libs/jquery'
     }
 })
 
-requirejs(['jquery', '../model'], function($, Model){
+requirejs(['jquery', '../dist/model'], function($, Model){
     //Model 配置
     var config = {
         before: function(){
