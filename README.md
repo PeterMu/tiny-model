@@ -55,7 +55,7 @@
 
 必须，默认为 status.code，返回数据中状态码的key，如果没有状态码配置为null
 
-### msgKey: 'status.message'
+### msgKey { String }
 
 必须，默认为 status.message，返回数据中状态信息的key，如果没有状态信息配置为null
 
@@ -74,6 +74,10 @@
 ### error { Function }
 
 可选，每次请求报错后（非200的响应）要执行的函数，回调的参数为 (error, config)
+
+### xhrFields { Object }
+
+可选，ajax 自定义请求头
 
 ### modelConfig { Object }
 
