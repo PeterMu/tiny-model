@@ -172,6 +172,11 @@ var config = {
     msgKey: 'status.message',
 
     /**
+     * 自定义 ajax 请求头
+     */
+    xhrFields: null,
+
+    /**
      * 具体的 model 配置对象，key 为 model 的方法名称，value 为 model 方法的具体配置
      * dao 方法配置的必须字段：
      * url： api 地址
