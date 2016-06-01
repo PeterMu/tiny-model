@@ -13,9 +13,19 @@
 
 必须，默认为json，配置响应数据的类型
 
-### xsrf { String }
+### xsrf { String || Function }
 
 可选，防 csrf/xsrf 的 token 配置。配置后，发送请求时会自动在cookie中获取对应的token，放到请求参数里。
+
+当 xsrf 为 Function 时，需要返回的数据结构为：
+
+```
+{
+    //xsrf 的参数名
+    name: '_xsrf',
+    value: 'xxx'
+}
+```
 
 ### showMask { Boolean }
 

@@ -206,7 +206,7 @@
      * 构造请求Url
      * @param  {String} url 原始请求url
      * @param  {Boolean} hasToken 是否添加时间戳
-     * @param  {String} xsrf 防止xsrf的cookie名称
+     * @param  {String || Function} xsrf 防止xsrf的cookie名称
      * @return {String} 构建后的请求url
      */
     Model.prototype.parseUrl = function(url, hasToken, xsrf){
@@ -219,7 +219,12 @@
             url = this.addQueryParam(url, 't', new Date().getTime())
         }
         if(xsrf){
-            url = this.addQueryParam(url, xsrf, this._getCookie(xsrf))
+            if(typeof xsrf == 'function') {
+                var xsrfObj = xsrf() || {}
+                url = this.addQueryParam(url, xsrfObj.name, xsrfObj.value)
+            } else {
+                url = this.addQueryParam(url, xsrf, this._getCookie(xsrf))
+            }
         }
         return url
     }
