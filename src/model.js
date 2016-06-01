@@ -36,7 +36,8 @@
             baseUrl: '',
             codeKey: 'status.code',
             msgKey: 'status.message',
-            successCode: 1
+            successCode: 1,
+            xhrFields: null
         }, this._config)
         this.init()
     }
@@ -77,10 +78,10 @@
                 sendType,
                 dataType,
                 ModelConfig,
-                function(error, data, isSuccess){
+                function(error, data, isSuccess, status){
                     that._afterProcess(error, data, url, startTime, ModelConfig)
                     if(!error){
-                        successCb && successCb(data, isSuccess)
+                        successCb && successCb(data, isSuccess, status)
                     }else{
                         errorCb && errorCb(error, ModelConfig)
                     }
@@ -154,9 +155,9 @@
             complete = this.getConfig('complete', ModelConfig.complete),
             errorFn = this.getConfig('error', ModelConfig.error)
         if(!error){
-            status = this.getStatus(data, ModelConfig.codeKey, ModelConfig.msgKey)
+            var status = this.getStatus(data, ModelConfig.codeKey, ModelConfig.msgKey)
             successCode = this.getConfig('successCode', ModelConfig.successCode)
-            complete && complete(data, status.code == successCode, ModelConfig)
+            complete && complete(data, status.code == successCode, status, ModelConfig)
         }else{
             //非200错误
            errorFn && errorFn(error, ModelConfig)
@@ -284,8 +285,9 @@
         options.success = function(resp, textStatus){
             var status = that.getStatus(resp, ModelConfig.codeKey, ModelConfig.msgKey)
             var successCode = that.getConfig('successCode', ModelConfig.successCode)
-            cb(null, resp, status.code === successCode)
+            cb(null, resp, status.code === successCode, status)
         }
+        options.xhrFields = this.getConfig('xhrFields', ModelConfig.xhrFields)
         $.ajax(options)
     }
 
