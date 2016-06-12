@@ -75,9 +75,19 @@
 
 可选，每次请求报错后（非200的响应）要执行的函数，回调的参数为 (error, config)
 
+## headers { Object }
+
+可选，自定义请求头
+
 ### xhrFields { Object }
 
-可选，ajax 自定义请求头
+可选，设置XHR 对象的属性，例如跨域请求时要求携带cookie的设置：
+
+```
+xhrFields: {
+    withCredentials: true
+}
+```
 
 ### modelConfig { Object }
 
@@ -231,4 +241,12 @@ model.addDomain({
     console.log(resp)
 })
 ```
+
+## Recent Release
+
+### v0.1.2
+
+- 生成的 model 方法，返回 jqXHR，可以使用 deferred
+- 添加 headers 配置项
+- 修正 xhrFields 配置的说明
 

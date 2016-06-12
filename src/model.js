@@ -37,7 +37,8 @@
             codeKey: 'status.code',
             msgKey: 'status.message',
             successCode: 1,
-            xhrFields: null
+            xhrFields: null,
+            headers: {}
         }, this._config)
         this.init()
     }
@@ -72,7 +73,7 @@
                 params = null
             }
             that._beforeProcess(params, ModelConfig)
-            that._send(url,
+            return that._send(url,
                 params,
                 ModelConfig.method || 'GET',
                 sendType,
@@ -288,7 +289,8 @@
             cb(null, resp, status.code === successCode, status)
         }
         options.xhrFields = this.getConfig('xhrFields', ModelConfig.xhrFields)
-        $.ajax(options)
+        options.headers = this.getConfig('headers', ModelConfig.headers)
+        return $.ajax(options)
     }
 
     return Model
