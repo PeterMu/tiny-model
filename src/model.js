@@ -5,8 +5,7 @@
  !function(factory){
     // amd || cmd
     if(typeof define == 'function' && (define.cmd || define.amd)){
-        define(function(require){
-            var $ = require('jquery')
+        define(['jquery'], function($){
             return factory($)
         })
     }else{
@@ -266,9 +265,10 @@
      * @param    {String} dataType 响应数据类型
      * @param    {ModelConfig} ModelConfig Model配置对象
      * @callback {String} cb 请求成功后的回调函数
-     * @return   {String}
+     * @return   {Deferred}
      */
     Model.prototype._send = function(url, params, method, sendType, dataType, ModelConfig, cb){
+        var deferred = $.Deferred()
         var options = {
             url: url,
             type: method
@@ -281,17 +281,27 @@
         }
         options.data = params
         options.error = function(xhr, textStatus){
-            cb(textStatus, null)
+            var errorInfo = {
+                //http status
+                status: xhr.status,
+                //Possible values ars "timeout", "error", "abort", and "parsererror"
+                textStatus: textStatus
+            }
+            cb(errorInfo, null)
+            deferred.reject(errorInfo)
         }
         options.success = function(resp, textStatus){
             var status = that.getStatus(resp, ModelConfig.codeKey, ModelConfig.msgKey)
             var successCode = that.getConfig('successCode', ModelConfig.successCode)
             cb(null, resp, status.code === successCode, status)
+            deferred.resolve(resp, status.code === successCode, status)
         }
         options.xhrFields = this.getConfig('xhrFields', ModelConfig.xhrFields)
         options.headers = this.getConfig('headers', ModelConfig.headers)
-        return $.ajax(options)
+        $.ajax(options)
+        return deferred
     }
 
     return Model
 })
+

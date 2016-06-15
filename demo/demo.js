@@ -127,7 +127,7 @@ requirejs(['jquery', '../dist/model'], function($, Model){
     var model = new Model(config)
     model.getDomain({
         domain_id: 1001
-    }, function(resp){
+    }, function(resp, isSucc, status){
         console.log(resp)
     }, function(error){
         console.log(error)
@@ -135,7 +135,7 @@ requirejs(['jquery', '../dist/model'], function($, Model){
 
     model.addDomain({
         domain: 'dnspod.cn'
-    }, function(resp){
+    }, function(resp, isSucc, status){
         console.log(resp)
     })
 })
