@@ -115,7 +115,7 @@ modelConfig: {
 //生成的 model 方法
 model.test(data, successCb, errorCb) //callback style
 
-model.done(successCb).fail(errorCb) //promise style
+model.test(data).done(successCb).fail(errorCb) //promise style
 
 //successCb
 //resp: 请求响应
