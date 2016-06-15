@@ -13,7 +13,7 @@
 
 必须，默认为json，配置响应数据的类型
 
-### xsrf { String || Function }
+### xsrf { String / Function }
 
 可选，防 csrf/xsrf 的 token 配置。配置后，发送请求时会自动在cookie中获取对应的token，放到请求参数里。
 
@@ -100,6 +100,33 @@ model 请求方法配置对象。上面的全局配置项都可以在 modelConfi
 #### method { String }
 
 请求的方法
+
+#### 举个栗子
+
+```
+//配置信息
+modelConfig: {
+    test: {
+        url: '/test',
+        method: 'get'
+    }
+}
+
+//生成的 model 方法
+model.test(data, successCb, errorCb) //callback style
+
+model.done(successCb).fail(errorCb) //promise style
+
+//successCb
+//resp: 请求响应
+//isSucc: 是否成功，根据 codeKey 和 successCode 的配置判断
+//status: 状态信息，status.code 对应 codeKey 配置，status.msg 对应 msgKey 配置
+successCb (resp, isSucc, status)
+
+//errorCb
+//error: error.status http 状态码，error.textStatus 状态信息（如：error, timeout ...）
+errorCb (error)
+```
 
 ## 使用样例
 
@@ -243,6 +270,11 @@ model.addDomain({
 ```
 
 ## Recent Release
+
+### v0.1.3
+
+- 生成的 model 方法返回 jquery deferred 对象，支持 .done .fail .then 用法。
+- 修正 model 模块定义写法。
 
 ### v0.1.2
 
