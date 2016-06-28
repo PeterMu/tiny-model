@@ -271,6 +271,10 @@ model.addDomain({
 
 ## Recent Release
 
+### v0.1.4
+
+- 修正seajs下的兼容问题。
+
 ### v0.1.3
 
 - 生成的 model 方法返回 jquery deferred 对象，支持 .done .fail .then 用法。
