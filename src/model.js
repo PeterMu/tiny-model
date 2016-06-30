@@ -5,12 +5,12 @@
  !function(factory){
     // amd
     if (typeof define == 'function' && define.amd) {
-        define(['jquery'], function($) {
+        define('tiny-model', ['jquery'], function($) {
             return factory($)
         })
     //cmd
     } else if (typeof define == 'function' && define.cmd) {
-        define(function(require, exports, module) {
+        define('tiny-model', function(require, exports, module) {
             var $ = require('jquery')
             return factory($)
         })
