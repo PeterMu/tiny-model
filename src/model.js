@@ -66,17 +66,17 @@
      * @return {Function} 请求方法
      */
     Model.prototype.buildReq = function(ModelConfig){
-        var url = this.parseUrl(ModelConfig.url, ModelConfig.hasToken, ModelConfig._xsrf),
-            sendType = this.getConfig('sendType', ModelConfig.sendType),
+        var sendType = this.getConfig('sendType', ModelConfig.sendType),
             dataType = this.getConfig('dataType', ModelConfig.dataType),
             that = this;
         return function(params, successCb, errorCb){
-            var startTime = new Date().getTime()
+            var startTime = new Date().getTime(), url = ''
             if(typeof params == 'function'){
                 successCb = params
                 errorCb = successCb
                 params = null
             }
+            url = that.parseUrl(ModelConfig.url, params, ModelConfig.hasToken, ModelConfig._xsrf)
             that._beforeProcess(params, ModelConfig)
             return that._send(url,
                 params,
@@ -216,9 +216,22 @@
      * @param  {String || Function} xsrf 防止xsrf的cookie名称
      * @return {String} 构建后的请求url
      */
-    Model.prototype.parseUrl = function(url, hasToken, xsrf){
+    Model.prototype.parseUrl = function(url, params, hasToken, xsrf){
+        params = params || {}
         hasToken = this.getConfig('hasToken', hasToken)
         xsrf = this.getConfig('xsrf', xsrf)
+        if (/:(\w+)/.test(url)) {
+            url = url.replace(/:(\w+)/g, function(match, key) {
+                if (params[key]) {
+                    var value = params[key]
+                    delete params[key]
+                    return value
+                } else {
+                    console.error('tiny-model: the url', url, 'need param', key)
+                    return match
+                }
+            })
+        }
         if(this._config.baseUrl){
             url = this._config.baseUrl + url
         }

@@ -114,6 +114,10 @@ requirejs(['jquery', '../dist/model'], function($, Model){
                 url: '/Domain.Add',
                 method: 'POST',
                 hasToken: false
+            },
+            findByName: {
+                url: '/Domain/:name',
+                method: 'GET'
             }
         }
     }
@@ -137,5 +141,13 @@ requirejs(['jquery', '../dist/model'], function($, Model){
         domain: 'dnspod.cn'
     }, function(resp, isSucc, status){
         console.log(resp)
+    })
+
+    model.findByName({
+        name: 'test.com'
+    }, function(resp) {
+        console.log(resp)
+    }, function(error) {
+        console.error(error)
     })
 })
