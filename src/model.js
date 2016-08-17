@@ -99,6 +99,7 @@
 
     Model.prototype.mergeParams = function(params, configParams) {
         if (configParams) {
+            params = params || {}
             for (var key in configParams) {
                 if (!params[key]) {
                     params[key] = configParams[key]
