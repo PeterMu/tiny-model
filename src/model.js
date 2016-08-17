@@ -78,6 +78,7 @@
             }
             url = that.parseUrl(ModelConfig.url, params, ModelConfig.hasToken, ModelConfig._xsrf)
             that._beforeProcess(params, ModelConfig)
+            params = that.mergeParams(params, ModelConfig.data) 
             return that._send(url,
                 params,
                 ModelConfig.method || 'GET',
@@ -94,6 +95,17 @@
                 }
             )
         }
+    }
+
+    Model.prototype.mergeParams = function(params, configParams) {
+        if (configParams) {
+            for (var key in configParams) {
+                if (!params[key]) {
+                    params[key] = configParams[key]
+                }
+            }
+        }
+        return params
     }
 
     /**
@@ -217,6 +229,7 @@
      * @return {String} 构建后的请求url
      */
     Model.prototype.parseUrl = function(url, params, hasToken, xsrf){
+        url = url || ''
         params = params || {}
         hasToken = this.getConfig('hasToken', hasToken)
         xsrf = this.getConfig('xsrf', xsrf)
