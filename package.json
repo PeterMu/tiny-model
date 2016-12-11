@@ -1,6 +1,6 @@
 {
   "name": "tiny-model",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "超轻量级 Model 库, 可以根据项目需求，基于 tiny-model 封装出 Model 组件。",
   "main": "dist/model.js",
   "scripts": {
