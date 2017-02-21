@@ -176,7 +176,7 @@
         if(!error){
             var status = this.getStatus(data, ModelConfig.codeKey, ModelConfig.msgKey)
             successCode = this.getConfig('successCode', ModelConfig.successCode)
-            complete && complete(data, status.code == successCode, status, ModelConfig)
+            complete && complete(data, status.code == successCode, status, ModelConfig, startTime, error)
         }else{
             //非200错误
            errorFn && errorFn(error, ModelConfig)
