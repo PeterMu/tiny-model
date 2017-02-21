@@ -179,7 +179,7 @@
             complete && complete(data, status.code == successCode, status, ModelConfig, startTime, error)
         }else{
             //非200错误
-           errorFn && errorFn(error, ModelConfig)
+           errorFn && errorFn(error, ModelConfig, startTime)
         }
         //关闭遮罩
         if(showMask){
